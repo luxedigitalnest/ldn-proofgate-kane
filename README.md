@@ -21,3 +21,11 @@ New prototype created during the November 25–26 work session. No KaneCLI verif
 3. Remove the public claim and disclose local-only limitations; the page must show structure-only readiness.
 4. Enter a transaction hash and mismatched explorer URL; the page must block. Correct the URL; verify readiness remains explicitly structure-only.
 5. Return an actual Kane result to the coding agent; fix any genuine failure and rerun. Do not fabricate Kane output.
+
+## Optional Kane runner
+
+`node kane-plan.mjs` prints three synthetic-only objectives without running Kane or consuming credits. After installing the official CLI, authenticating through its supported OAuth flow, checking your free credit balance and accepting the applicable terms, use `node kane-plan.mjs --execute --confirm-owner-reviewed-free-credits` in an approved environment where the `kane-cli` executable is directly available in PATH. The runner serves only its own static fixture over loopback, passes documented arguments without a shell, stops on the first non-pass and stores output in an ignored local directory. Exit codes are not proof of receipt authenticity; review the real Kane evidence packs and logs before submitting. Do not commit credentials or raw evidence. No Kane execution has yet been demonstrated.
+
+Official CLI reference: https://www.testmuai.com/docs/kane-cli-quickstart and https://github.com/LambdaTest/kane-cli .
+
+Hosted CI at commit 6f85dbd9b6e8ee09270662bdb71c93f5a55b596f independently passed 14 unit and 6 browser checks: https://github.com/luxedigitalnest/ldn-proofgate-kane/actions/runs/45718782496 . This is ordinary Playwright/Node verification, not KaneCLI evidence.
