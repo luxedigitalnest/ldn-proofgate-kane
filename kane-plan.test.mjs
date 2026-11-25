@@ -1,0 +1,5 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {objectives,commandArgs,classify} from './kane-plan.mjs';
+test('three original synthetic-only objectives',()=>{assert.equal(objectives.length,3);assert(objectives.every(o=>typeof o==='string'&&o.length>80))});
+test('argument boundaries and documented flags',()=>{const x=commandArgs(objectives[0],'http://127.0.0.1:8080/');assert.equal(x[0],'run');assert.equal(x[1],objectives[0]);assert(x.includes('--agent'));assert(x.includes('--headless'));assert(x.includes('--timeout'))});
+test('reject external URL, credentials and unexpected routes',()=>{for(const url of ['https://example.com/','http://user:pass@127.0.0.1/','http://127.0.0.1:8080/admin','http://127.0.0.1:8080/?x=1'])assert.throws(()=>commandArgs(objectives[0],url))});
+test('nonzero and interrupted results are not successes',()=>{assert.equal(classify(0,null),'pass');assert.equal(classify(1,null),'fail');assert.equal(classify(2,null),'error');assert.equal(classify(null,'SIGTERM'),'error')});
