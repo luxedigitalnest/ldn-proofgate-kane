@@ -1,0 +1,48 @@
+from pathlib import Path
+import os
+from playwright.sync_api import sync_playwright
+URL=(Path(__file__).resolve().parent/'index.html').as_uri()
+with sync_playwright() as p:
+    executable=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE')
+    options={'headless':True}
+    if executable:
+        options['executable_path']=executable
+    browser=p.chromium.launch(**options)
+    page=browser.new_page(viewport={'width':1280,'height':900})
+    page.goto(URL)
+    page.get_by_role('button',name='Review evidence').click()
+    assert 'BLOCKED' in page.locator('#result').inner_text()
+    print('PASS: empty evidence blocks')
+    page.locator('#project').fill('Synthetic QA fixture')
+    page.locator('#network').select_option('local')
+    page.locator('#repo').fill('https://github.com/example/project')
+    page.locator('#statement').fill('Synthetic local fixture; no actual chain receipt.')
+    page.locator('#demo').check()
+    page.locator('#publicclaim').check()
+    page.get_by_role('button',name='Review evidence').click()
+    assert 'local simulation cannot support' in page.locator('#result').inner_text()
+    print('PASS: local simulation cannot be presented as public on-chain proof')
+    page.locator('#publicclaim').uncheck()
+    page.locator('#txstatus').select_option('na')
+    page.get_by_role('button',name='Review evidence').click()
+    assert 'READY FOR HUMAN REVIEW' in page.locator('#result').inner_text()
+    assert 'authenticate all evidence' in page.locator('#result').inner_text()
+    print('PASS: honest local evidence receives structure-only readiness')
+    page.locator('#network').select_option('testnet')
+    page.locator('#publicclaim').check()
+    page.locator('#txstatus').select_option('success')
+    h='0x'+'a'*64
+    page.locator('#hash').fill(h)
+    page.locator('#explorer').fill('https://example.org/tx/0x'+'b'*64)
+    page.locator('#receipt').check()
+    page.get_by_role('button',name='Review evidence').click()
+    assert 'exact transaction hash' in page.locator('#result').inner_text()
+    print('PASS: mismatched receipt identifier blocked')
+    page.locator('#explorer').fill('https://example.org/tx/'+h)
+    page.get_by_role('button',name='Review evidence').click()
+    assert 'READY FOR HUMAN REVIEW' in page.locator('#result').inner_text()
+    print('PASS: consistent synthetic testnet evidence is not certified')
+    page.set_viewport_size({'width':390,'height':844})
+    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+    print('PASS: narrow viewport has no horizontal overflow')
+    browser.close()
