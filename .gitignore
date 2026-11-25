@@ -1,0 +1,6 @@
+.kane-local-evidence/
+.testmuai/
+.env
+.env.*
+node_modules/
+__pycache__/
