@@ -12,7 +12,7 @@ Initial local JavaScript tests passed 14/14. Initial local Chromium navigation w
 
 ## KaneCLI competition readiness
 
-New prototype created during the November 25–26 work session. No KaneCLI verification, registration, published video, posts or competition submission is claimed. The organizer requires a genuine Kane run, a public repository, 3–5 minute YouTube demo and at least two public posts. Use the official free-credit account process only with the owner's consent and applicable contest terms. A structural pass is not a certification of real evidence.
+New prototype created during the November 25–26 work session. The public demonstration is deployed at https://luxedigitalnest.github.io/ldn-proofgate-kane/ . Solo event registration is confirmed; the promotional Kane entitlement is not yet confirmed, and no actual KaneCLI run, published demo video, qualifying posts or final competition submission is claimed. The organizer requires a genuine Kane run, a public repository, 3–5 minute YouTube demo and at least two public posts. Use the official free-credit account process only with the owner's consent and applicable contest terms. A structural pass is not a certification of real evidence.
 
 ## Planned Kane verification flows (not executed)
 
@@ -29,3 +29,7 @@ New prototype created during the November 25–26 work session. No KaneCLI verif
 Official CLI reference: https://www.testmuai.com/docs/kane-cli-quickstart and https://github.com/LambdaTest/kane-cli .
 
 Hosted CI at commit 6f85dbd9b6e8ee09270662bdb71c93f5a55b596f independently passed 14 unit and 6 browser checks: https://github.com/luxedigitalnest/ldn-proofgate-kane/actions/runs/45718782496 . This is ordinary Playwright/Node verification, not KaneCLI evidence.
+
+## Latest verified ordinary checks (26 November)
+
+The opt-in runner and its preflight tests at commit `a77a9981d17487d6559997735437fcad918d5b35` passed 18 Node tests and six browser checks in [hosted CI](https://github.com/luxedigitalnest/ldn-proofgate-kane/actions/runs/45719354733). The deployed public page was separately exercised with synthetic empty, local-only, and mismatched/corrected explorer-hash examples. None of those checks establishes genuine KaneCLI execution or authentic on-chain activity. The contest deadline is 26 November 2026, 11:59 PM IST (18:29 UTC), according to [the organizer](https://www.kaneclihack.sh/). A final submission requires actual Kane verification, the video and two qualifying public posts; incomplete evidence must not be presented as eligible.
